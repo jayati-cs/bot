@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMIE - Your Cute Voxel AI Companion</title>
+    <meta name="description" content="HOMIE is a super cute, expressive 8-bit AI companion featuring interactive voice speech output, Web Speech API mic, pixel-art UI, and customizable color themes.">
+    <!-- Google Fonts for Cute Pixel Art Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app-container" class="app-viewport">
+        <!-- Top Status Bar -->
+        <header class="top-bar mc-box">
+            <div class="brand">
+                <span class="pixel-cube"></span>
+                <h1 class="brand-title">HOMIE <span class="version-tag">v2.1</span></h1>
+            </div>
+            <div class="status-indicator-group">
+                <div class="status-pill" id="status-pill">
+                    <span class="status-dot online"></span>
+                    <span id="status-text">HOMIE ONLINE</span>
+                </div>
+                
+                <!-- Voice Select Dropdown for Human Natural Voices -->
+                <div class="voice-select-wrapper">
+                    <span class="voice-icon">🎙️</span>
+                    <select id="voice-select" class="mc-select" title="Choose Homie Human Voice"></select>
+                </div>
+
+                <!-- Voice TTS Speaker Toggle Button -->
+                <button id="tts-toggle-btn" class="mc-btn icon-btn active" title="Toggle Homie Spoken Voice">
+                    <span id="tts-icon">🗣️</span> <span class="btn-label">VOICE ON</span>
+                </button>
+
+                <!-- 8-Bit Sound FX Toggle Button -->
+                <button id="sound-toggle-btn" class="mc-btn icon-btn" title="Toggle Sound FX">
+                    <span id="sound-icon">🔊</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Workspace / Bot Showcase area -->
+        <main class="main-stage">
+            <!-- 3D Perspective Tilt Head Container -->
+            <div id="head-stage" class="head-stage-wrapper" title="Click or hover to interact with Homie!">
+                <div id="bot-head" class="bot-head-container">
+                    <!-- Head Outer Face with Cute Pixel Texture & Soft Lighting -->
+                    <div class="head-face">
+                        <div class="pixel-grid-overlay"></div>
+                        
+                        <!-- Cute Eyebrows Layer -->
+                        <div class="eyebrows-container">
+                            <div class="eyebrow left-brow" id="left-brow"></div>
+                            <div class="eyebrow right-brow" id="right-brow"></div>
+                        </div>
+
+                        <!-- Cute Eye Sockets & Big Sparkle Eyeballs -->
+                        <div class="eyes-container">
+                            <!-- Left Eye Socket -->
+                            <div class="eye-socket left-socket">
+                                <div class="eyeball" id="left-eyeball">
+                                    <div class="iris">
+                                        <div class="pupil"></div>
+                                        <div class="glint glint-main"></div>
+                                        <div class="glint glint-sub"></div>
+                                    </div>
+                                </div>
+                                <div class="eyelid" id="left-eyelid"></div>
+                                <div class="happy-arc" id="left-happy-arc">^</div>
+                            </div>
+
+                            <!-- Right Eye Socket -->
+                            <div class="eye-socket right-socket">
+                                <div class="eyeball" id="right-eyeball">
+                                    <div class="iris">
+                                        <div class="pupil"></div>
+                                        <div class="glint glint-main"></div>
+                                        <div class="glint glint-sub"></div>
+                                    </div>
+                                </div>
+                                <div class="eyelid" id="right-eyelid"></div>
+                                <div class="happy-arc" id="right-happy-arc">^</div>
+                            </div>
+                        </div>
+
+                        <!-- Rosy Cute Blush Cheeks -->
+                        <div class="blush-cheek left-blush"></div>
+                        <div class="blush-cheek right-blush"></div>
+                        <div class="cute-nose"></div>
+
+                        <!-- Cute Smiling Mouth Container -->
+                        <div class="mouth-container" id="bot-mouth">
+                            <div class="mouth-interior">
+                                <div class="cute-smile-curve"></div>
+                            </div>
+                        </div>
+
+                        <!-- State Indicator Particles Container (e.g. Floating Zzz & Hearts) -->
+                        <div id="particle-canvas" class="particle-overlay"></div>
+                    </div>
+                </div>
+
+                <!-- Blocky Typing Progress Bar Indicator -->
+                <div id="typing-indicator" class="typing-indicator mc-box hidden">
+                    <span class="typing-label">HOMIE IS THINKING</span>
+                    <div class="blocky-loader">
+                        <span class="block-dot dot-1"></span>
+                        <span class="block-dot dot-2"></span>
+                        <span class="block-dot dot-3"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Retro Minecraft Floating Chat Dock -->
+            <section class="chat-dock-container mc-box">
+                <div class="chat-dock-header">
+                    <span class="chat-title">💬 CHAT WITH HOMIE</span>
+                    <span class="emotion-badge" id="emotion-badge">STATE: IDLE</span>
+                </div>
+
+                <!-- Scrollable Messages Area -->
+                <div class="chat-messages" id="chat-messages">
+                    <div class="chat-msg bot-msg">
+                        <span class="msg-speaker">HOMIE:</span>
+                        <span class="msg-content">Yo homie! I'm Homie! Ask me any question, calculate math, speak via mic, or tweak my colors in the bottom right! I will speak my replies in a natural human voice! ^ ^</span>
+                    </div>
+                </div>
+
+                <!-- Input Controls Dock -->
+                <form id="chat-form" class="chat-input-row">
+                    <!-- Mic Toggle Button (Voice Speech Input) -->
+                    <button type="button" id="mic-btn" class="mc-btn mic-btn" title="Click to speak with your microphone!">
+                        <span id="mic-icon">🎙️</span>
+                        <span id="mic-status-label" class="mic-label">MIC OFF</span>
+                    </button>
+
+                    <!-- Text Input Bar -->
+                    <div class="input-wrapper">
+                        <input type="text" id="chat-input" class="mc-input" placeholder="Ask Homie any question..." autocomplete="off">
+                    </div>
+
+                    <!-- Send Button -->
+                    <button type="submit" id="send-btn" class="mc-btn send-btn">
+                        <span>SEND</span>
+                    </button>
+                </form>
+            </section>
+        </main>
+
+        <!-- Bottom Right Floating Customization Drawer (Background & Bot Color Palettes) -->
+        <aside class="color-drawer-container">
+            <button id="drawer-toggle-btn" class="mc-btn drawer-toggle">
+                <span>🎨 COLOR PALETTES</span>
+            </button>
+            <div id="color-drawer" class="color-drawer-panel mc-box hidden">
+                <div class="drawer-header">
+                    <span>CUSTOMIZATION DOCK</span>
+                    <button id="drawer-close-btn" class="close-btn">&times;</button>
+                </div>
+
+                <!-- Option 1: Background Color Switcher -->
+                <div class="palette-section">
+                    <label class="palette-label">1. WORLD BACKGROUND</label>
+                    <div class="palette-preset-grid" id="bg-palette-presets">
+                        <button class="palette-chip active" data-color="#000000" style="background-color: #000000;" title="Default Black"></button>
+                        <button class="palette-chip" data-color="#121218" style="background-color: #121218;" title="Obsidian"></button>
+                        <button class="palette-chip" data-color="#2D0A0A" style="background-color: #2D0A0A;" title="Nether Red"></button>
+                        <button class="palette-chip" data-color="#0A1526" style="background-color: #0A1526;" title="Ender Dark"></button>
+                        <button class="palette-chip" data-color="#0A2612" style="background-color: #0A2612;" title="Moss Green"></button>
+                        <button class="palette-chip" data-color="#261F0A" style="background-color: #261F0A;" title="Desert Sand"></button>
+                    </div>
+                    <div class="custom-color-picker-row">
+                        <span class="picker-text">Custom:</span>
+                        <input type="color" id="bg-custom-picker" value="#000000" class="mc-color-input">
+                    </div>
+                </div>
+
+                <hr class="drawer-divider">
+
+                <!-- Option 2: Bot Skin Color Switcher -->
+                <div class="palette-section">
+                    <label class="palette-label">2. HOMIE SKIN COLOR</label>
+                    <div class="palette-preset-grid" id="bot-palette-presets">
+                        <button class="palette-chip active" data-color="#4A1578" style="background-color: #4A1578;" title="Default Purple"></button>
+                        <button class="palette-chip" data-color="#0F5C2E" style="background-color: #0F5C2E;" title="Emerald Green"></button>
+                        <button class="palette-chip" data-color="#8C1313" style="background-color: #8C1313;" title="Redstone Crimson"></button>
+                        <button class="palette-chip" data-color="#0E6E85" style="background-color: #0E6E85;" title="Diamond Cyan"></button>
+                        <button class="palette-chip" data-color="#85680E" style="background-color: #85680E;" title="Gold Yellow"></button>
+                        <button class="palette-chip" data-color="#26262B" style="background-color: #26262B;" title="Netherite Dark"></button>
+                    </div>
+                    <div class="custom-color-picker-row">
+                        <span class="picker-text">Custom:</span>
+                        <input type="color" id="bot-custom-picker" value="#4a1578" class="mc-color-input">
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>

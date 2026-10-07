@@ -1,0 +1,766 @@
+/* ==========================================================================
+   HOMIE - CUTE VOXEL AI COMPANION STYLESHEET
+   Aesthetics: Soft Pixel Art, Cute Friendly Design, Vibrant Dynamic Themes
+   ========================================================================== */
+
+:root {
+    /* World & Homie Dynamic CSS Variables */
+    --bg-color: #000000;
+    --bot-color: #4A1578;
+    --bot-dark: #2A0845;
+    --bot-light: #7B2CBF;
+    --bot-accent: #5A189A;
+    --bot-glow: rgba(123, 44, 191, 0.6);
+    
+    /* Minecraft UI Theme Tokens */
+    --mc-bg-dark: #121216;
+    --mc-border-dark: #1E1E24;
+    --mc-bevel-light: #3D3D48;
+    --mc-bevel-dark: #0A0A0E;
+    --mc-text-light: #F0F0F5;
+    --mc-text-yellow: #FFD166;
+    --mc-green: #06D6A0;
+    --mc-cyan: #118AB2;
+    --mc-pink: #FF70A6;
+    --mc-red: #EF476F;
+    
+    /* Typography */
+    --font-header: 'Press Start 2P', cursive;
+    --font-body: 'VT323', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    color: var(--mc-text-light);
+    font-family: var(--font-body);
+    font-size: 18px;
+    overflow: hidden;
+    transition: background-color 0.4s ease;
+}
+
+/* ==========================================================================
+   MINECRAFT BOX & BUTTON UTILITIES
+   ========================================================================== */
+
+.mc-box {
+    background-color: var(--mc-bg-dark);
+    border: 4px solid var(--mc-border-dark);
+    box-shadow: 
+        inset 4px 4px 0px var(--mc-bevel-light),
+        inset -4px -4px 0px var(--mc-bevel-dark),
+        0 8px 24px rgba(0, 0, 0, 0.9);
+    position: relative;
+    border-radius: 4px;
+}
+
+.mc-btn {
+    font-family: var(--font-header);
+    font-size: 10px;
+    color: #FFFFFF;
+    background-color: #3C3C46;
+    border: 3px solid #1E1E24;
+    box-shadow: 
+        inset 3px 3px 0px #555566,
+        inset -3px -3px 0px #22222A;
+    padding: 10px 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.mc-btn:hover {
+    background-color: #4C4C5A;
+    border-color: var(--mc-text-yellow);
+    box-shadow: 
+        inset 3px 3px 0px #666677,
+        inset -3px -3px 0px #111118,
+        0 0 10px var(--bot-glow);
+    transform: translateY(-2px);
+}
+
+.mc-btn.active {
+    background-color: var(--bot-accent);
+    border-color: var(--mc-text-yellow);
+    box-shadow: 
+        inset 3px 3px 0px var(--bot-light),
+        inset -3px -3px 0px var(--bot-dark),
+        0 0 12px var(--bot-glow);
+}
+
+.mc-btn:active {
+    transform: translateY(1px);
+}
+
+.mc-select {
+    font-family: var(--font-body);
+    font-size: 18px;
+    color: var(--mc-text-yellow);
+    background-color: #0A0A0E;
+    border: 2px solid #282834;
+    padding: 6px 10px;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    max-width: 210px;
+}
+
+.voice-select-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #18181F;
+    padding: 4px 8px;
+    border: 2px solid #2A2A36;
+    border-radius: 4px;
+}
+
+.mc-input {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 22px;
+    color: #FFFFFF;
+    background-color: #0A0A0E;
+    border: 3px solid #282834;
+    box-shadow: 
+        inset 3px 3px 0px #000000,
+        inset -3px -3px 0px #1E1E24;
+    padding: 12px 16px;
+    outline: none;
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mc-input:focus {
+    border-color: var(--mc-text-yellow);
+    box-shadow: 
+        inset 3px 3px 0px #000000,
+        0 0 14px var(--bot-glow);
+}
+
+/* ==========================================================================
+   APP LAYOUT CONTAINER
+   ========================================================================== */
+
+.app-viewport {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    position: relative;
+}
+
+.top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    z-index: 10;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pixel-cube {
+    width: 24px;
+    height: 24px;
+    background-color: var(--bot-color);
+    border: 2px solid #FFFFFF;
+    border-radius: 4px;
+    box-shadow: 
+        inset 2px 2px 0px var(--bot-light),
+        inset -2px -2px 0px var(--bot-dark);
+}
+
+.brand-title {
+    font-family: var(--font-header);
+    font-size: 16px;
+    color: var(--mc-text-yellow);
+    text-shadow: 2px 2px 0px #000000;
+    letter-spacing: 1px;
+}
+
+.version-tag {
+    font-size: 10px;
+    color: var(--mc-pink);
+}
+
+.status-indicator-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.status-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-header);
+    font-size: 9px;
+    background: #18181F;
+    padding: 6px 12px;
+    border: 2px solid #2A2A36;
+    border-radius: 4px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--mc-green);
+    box-shadow: 0 0 8px var(--mc-green);
+}
+
+.icon-btn {
+    padding: 6px 12px;
+}
+
+.main-stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    z-index: 5;
+}
+
+/* ==========================================================================
+   SUPER CUTE VOXEL HEAD DESIGN
+   ========================================================================== */
+
+.head-stage-wrapper {
+    perspective: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.bot-head-container {
+    width: 230px;
+    height: 230px;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+    transition: transform 0.15s cubic-bezier(0.1, 0.8, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.head-face {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bot-color);
+    border: 6px solid #160826;
+    border-radius: 24px;
+    box-shadow: 
+        inset 10px 10px 0px var(--bot-light),
+        inset -10px -10px 0px var(--bot-dark),
+        0 0 40px var(--bot-glow);
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.pixel-grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 18px 18px;
+    pointer-events: none;
+}
+
+.eyebrows-container {
+    position: absolute;
+    top: 32px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 4;
+}
+
+.eyebrow {
+    width: 44px;
+    height: 7px;
+    background-color: var(--bot-dark);
+    border-radius: 3px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.eyes-container {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 34px;
+    z-index: 3;
+}
+
+.eye-socket {
+    width: 58px;
+    height: 58px;
+    background-color: #0F041A;
+    border: 4px solid #1A082A;
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+}
+
+.eyeball {
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: transform 0.1s ease-out;
+}
+
+.iris {
+    width: 36px;
+    height: 36px;
+    background-color: #00E5FF;
+    border: 2px solid #0099B8;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pupil {
+    width: 18px;
+    height: 18px;
+    background-color: #120420;
+    border-radius: 4px;
+}
+
+.glint-main {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 8px;
+    height: 8px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+}
+
+.glint-sub {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    width: 4px;
+    height: 4px;
+    background-color: #FFFFFF;
+    border-radius: 1px;
+}
+
+.eyelid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background-color: var(--bot-color);
+    border-bottom: 3px solid #160826;
+    z-index: 5;
+    transition: height 0.08s ease;
+}
+
+.happy-arc {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bot-color);
+    color: var(--mc-text-yellow);
+    font-family: var(--font-header);
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.blush-cheek {
+    position: absolute;
+    top: 115px;
+    width: 32px;
+    height: 18px;
+    background-color: #FF70A6;
+    opacity: 0.65;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #FF70A6;
+}
+
+.left-blush { left: 24px; }
+.right-blush { right: 24px; }
+
+.cute-nose {
+    position: absolute;
+    top: 116px;
+    left: 107px;
+    width: 16px;
+    height: 10px;
+    background-color: var(--bot-dark);
+    border-radius: 4px;
+}
+
+.mouth-container {
+    position: absolute;
+    bottom: 32px;
+    left: 72px;
+    width: 86px;
+    height: 22px;
+    background-color: #0F041A;
+    border: 3px solid #1A082A;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: height 0.12s ease, width 0.12s ease, transform 0.2s ease;
+}
+
+.mouth-interior {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #7209B7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cute-smile-curve {
+    width: 70%;
+    height: 50%;
+    border-bottom: 4px solid var(--mc-text-yellow);
+    border-radius: 0 0 8px 8px;
+}
+
+.particle-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.zzz-particle {
+    position: absolute;
+    font-family: var(--font-header);
+    font-size: 16px;
+    color: var(--mc-pink);
+    text-shadow: 2px 2px 0px #000;
+    animation: floatZzz 2.5s infinite linear;
+    opacity: 0;
+}
+
+@keyframes floatZzz {
+    0% { transform: translate(150px, 90px) scale(0.6); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translate(190px, 10px) scale(1.4); opacity: 0; }
+}
+
+.typing-indicator {
+    margin-top: 14px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-header);
+    font-size: 9px;
+    color: var(--mc-text-yellow);
+}
+
+.blocky-loader {
+    display: flex;
+    gap: 6px;
+}
+
+.block-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--mc-pink);
+    border-radius: 2px;
+    animation: blockBounce 1.2s infinite ease-in-out;
+}
+
+.dot-1 { animation-delay: 0s; }
+.dot-2 { animation-delay: 0.2s; }
+.dot-3 { animation-delay: 0.4s; }
+
+@keyframes blockBounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1.2); opacity: 1; background-color: var(--mc-text-yellow); }
+}
+
+.hidden { display: none !important; }
+
+/* ==========================================================================
+   RETRO MINECRAFT CHAT DOCK UI
+   ========================================================================== */
+
+.chat-dock-container {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    z-index: 10;
+}
+
+.chat-dock-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #282834;
+    padding-bottom: 8px;
+    font-family: var(--font-header);
+    font-size: 11px;
+    color: var(--mc-text-yellow);
+}
+
+.emotion-badge {
+    font-size: 9px;
+    color: var(--mc-pink);
+    background-color: #000;
+    padding: 4px 8px;
+    border: 1px solid var(--mc-pink);
+    border-radius: 3px;
+}
+
+.chat-messages {
+    width: 100%;
+    height: 130px;
+    background-color: #08080C;
+    border: 3px solid #1A1A24;
+    box-shadow: inset 2px 2px 0px #000;
+    padding: 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 4px;
+    scroll-behavior: smooth;
+}
+
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #3C3C4A;
+    border: 2px solid #1E1E28;
+}
+
+.chat-msg {
+    line-height: 1.4;
+    font-size: 20px;
+    word-break: break-word;
+}
+
+.msg-speaker {
+    font-family: var(--font-header);
+    font-size: 10px;
+    margin-right: 8px;
+}
+
+.bot-msg .msg-speaker { color: var(--mc-pink); }
+.user-msg .msg-speaker { color: var(--mc-green); }
+.sys-msg .msg-speaker { color: var(--mc-red); }
+
+.chat-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.mic-btn.active {
+    background-color: #D90429;
+    border-color: #FF5555;
+    box-shadow: 0 0 14px rgba(255, 85, 85, 0.9);
+    animation: pulseMic 1.2s infinite alternate;
+}
+
+@keyframes pulseMic {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.06); }
+}
+
+.input-wrapper { flex: 1; }
+.send-btn { min-width: 90px; }
+
+/* ==========================================================================
+   BOTTOM-RIGHT FLOATING CUSTOMIZATION DOCK
+   ========================================================================== */
+
+.color-drawer-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.color-drawer-panel {
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+    width: 320px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-header);
+    font-size: 10px;
+    color: var(--mc-text-yellow);
+    border-bottom: 2px solid #2A2A36;
+    padding-bottom: 6px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #FFF;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.palette-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.palette-label {
+    font-family: var(--font-header);
+    font-size: 8px;
+    color: var(--mc-pink);
+}
+
+.palette-preset-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+}
+
+.palette-chip {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #1E1E24;
+    border-radius: 6px;
+    box-shadow: inset 2px 2px 0px rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.palette-chip:hover {
+    transform: scale(1.15);
+    border-color: #FFFFFF;
+}
+
+.palette-chip.active {
+    border-color: var(--mc-text-yellow);
+    box-shadow: 0 0 10px var(--mc-text-yellow);
+}
+
+.custom-color-picker-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.mc-color-input {
+    -webkit-appearance: none;
+    border: 2px solid #333;
+    width: 36px;
+    height: 28px;
+    cursor: pointer;
+    background: none;
+    border-radius: 4px;
+}
+
+.drawer-divider {
+    border: none;
+    border-top: 2px solid #262634;
+}
+
+/* ==========================================================================
+   CUTE EMOTIONAL STATE OVERRIDES
+   ========================================================================== */
+
+.state-happy .happy-arc { opacity: 1; }
+.state-happy .eyeball { opacity: 0; }
+.state-happy .bot-head-container { box-shadow: 0 0 50px rgba(255, 112, 166, 0.6); }
+
+.state-thinking .left-brow { transform: rotate(-15deg) translateY(-4px); }
+.state-thinking .right-brow { transform: rotate(15deg) translateY(-4px); }
+.state-thinking .eyeball { animation: rotateEyes 3s infinite ease-in-out; }
+
+@keyframes rotateEyes {
+    0%, 100% { transform: translate(0, -5px); }
+    50% { transform: translate(5px, -5px); }
+}
+
+.state-speaking .mouth-container {
+    animation: mouthChatter 0.15s infinite alternate ease-in-out;
+}
+
+@keyframes mouthChatter {
+    0% { height: 16px; width: 80px; }
+    100% { height: 28px; width: 96px; }
+}
+
+.state-sleeping .eyelid { height: 100%; }
+.state-sleeping .mouth-container { height: 8px; width: 50px; }
+.state-sleeping .left-brow, .state-sleeping .right-brow { transform: translateY(6px); }
+
+.state-surprised .left-brow, .state-surprised .right-brow { transform: translateY(-10px); }
+.state-surprised .eye-socket { transform: scale(1.15); }
+.state-surprised .mouth-container { height: 38px; width: 38px; border-radius: 50%; }
+
+.state-confused .left-brow { transform: rotate(20deg) translateY(-6px); }
+.state-confused .right-brow { transform: rotate(-5deg) translateY(4px); }
+.state-confused .mouth-container { transform: rotate(-8deg); }
